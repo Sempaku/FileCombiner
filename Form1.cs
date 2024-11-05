@@ -25,6 +25,8 @@ namespace AI_FileCombiner
         {
             using (var folderBrowserDialog = new FolderBrowserDialog())
             {
+                if (!string.IsNullOrEmpty(tb_FolderPath.Text)) 
+                    folderBrowserDialog.SelectedPath = tb_FolderPath.Text;
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
                     tb_FolderPath.Text = folderBrowserDialog.SelectedPath;
