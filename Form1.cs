@@ -37,9 +37,8 @@ namespace AI_FileCombiner
         private void btn_Concatenate_Click(object sender, EventArgs e)
         {
             string folderPath = tb_FolderPath.Text;
-            string fileFilter = tb_FileFilter.Text;
+            string filterInput = tb_FileFilter.Text;
             charsPerPage = (int)numericUpDown_CharsPerPage.Value;
-
 
             if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
             {
@@ -49,10 +48,37 @@ namespace AI_FileCombiner
 
             try
             {
-                var files = Directory.GetFiles(folderPath, fileFilter, SearchOption.AllDirectories);
+                // Split the input string by commas to get multiple filters
+                string[] filters = filterInput.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                          .Select(f => f.Trim()).ToArray();
+
+                List<string> allFiles = new List<string>();
+
+                // If no filters are provided, get all files
+                if (filters.Length == 0 || (filters.Length == 1 && string.IsNullOrEmpty(filters[0])))
+                {
+                    allFiles.AddRange(Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories));
+                }
+                else
+                {
+                    foreach (string filter in filters)
+                    {
+                        try
+                        {
+                            allFiles.AddRange(Directory.GetFiles(folderPath, filter, SearchOption.AllDirectories));
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            MessageBox.Show($"Неверный шаблон поиска: {filter}. Ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+
+                // Remove duplicate file paths if any filter matches the same file
+                allFiles = allFiles.Distinct().ToList();
 
                 StringBuilder sb = new StringBuilder();
-                foreach (string file in files)
+                foreach (string file in allFiles)
                 {
                     sb.Append(File.ReadAllText(file));
                     sb.AppendLine(); // Add a newline between files
@@ -68,7 +94,6 @@ namespace AI_FileCombiner
                 MessageBox.Show($"Ошибка при чтении файлов: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void UpdateTextBox()
         {
             if (charsPerPage > 0 && concatenatedText.Length > charsPerPage)
