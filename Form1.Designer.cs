@@ -43,6 +43,9 @@
             this.lbl_PageInfo = new System.Windows.Forms.Label();
             this.rtb_Output = new System.Windows.Forms.RichTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cb_useGitIgnoreFile = new System.Windows.Forms.CheckBox();
+            this.cb_RemoveExtraSpaces = new System.Windows.Forms.CheckBox();
+            this.cb_ExcludeJunk = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_CharsPerPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -181,6 +184,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cb_useGitIgnoreFile);
+            this.splitContainer1.Panel1.Controls.Add(this.cb_RemoveExtraSpaces);
+            this.splitContainer1.Panel1.Controls.Add(this.cb_ExcludeJunk);
             this.splitContainer1.Panel1.Controls.Add(this.btn_Concatenate);
             this.splitContainer1.Panel1.Controls.Add(this.tb_FolderPath);
             this.splitContainer1.Panel1.Controls.Add(this.tb_FileFilter);
@@ -197,6 +203,36 @@
             this.splitContainer1.Size = new System.Drawing.Size(994, 534);
             this.splitContainer1.SplitterDistance = 100;
             this.splitContainer1.TabIndex = 12;
+            // 
+            // cb_useGitIgnoreFile
+            // 
+            this.cb_useGitIgnoreFile.AutoSize = true;
+            this.cb_useGitIgnoreFile.Location = new System.Drawing.Point(489, 62);
+            this.cb_useGitIgnoreFile.Name = "cb_useGitIgnoreFile";
+            this.cb_useGitIgnoreFile.Size = new System.Drawing.Size(91, 17);
+            this.cb_useGitIgnoreFile.TabIndex = 13;
+            this.cb_useGitIgnoreFile.Text = "Use .gitignore";
+            this.cb_useGitIgnoreFile.UseVisualStyleBackColor = true;
+            // 
+            // cb_RemoveExtraSpaces
+            // 
+            this.cb_RemoveExtraSpaces.AutoSize = true;
+            this.cb_RemoveExtraSpaces.Location = new System.Drawing.Point(489, 39);
+            this.cb_RemoveExtraSpaces.Name = "cb_RemoveExtraSpaces";
+            this.cb_RemoveExtraSpaces.Size = new System.Drawing.Size(129, 17);
+            this.cb_RemoveExtraSpaces.TabIndex = 12;
+            this.cb_RemoveExtraSpaces.Text = "Remove extra spaces";
+            this.cb_RemoveExtraSpaces.UseVisualStyleBackColor = true;
+            // 
+            // cb_ExcludeJunk
+            // 
+            this.cb_ExcludeJunk.AutoSize = true;
+            this.cb_ExcludeJunk.Location = new System.Drawing.Point(489, 16);
+            this.cb_ExcludeJunk.Name = "cb_ExcludeJunk";
+            this.cb_ExcludeJunk.Size = new System.Drawing.Size(121, 17);
+            this.cb_ExcludeJunk.TabIndex = 11;
+            this.cb_ExcludeJunk.Text = "Exclude \"Junk\" files";
+            this.cb_ExcludeJunk.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -238,6 +274,9 @@
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.RichTextBox rtb_Output;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.CheckBox cb_RemoveExtraSpaces;
+        private System.Windows.Forms.CheckBox cb_ExcludeJunk;
+        private System.Windows.Forms.CheckBox cb_useGitIgnoreFile;
     }
 }
 
