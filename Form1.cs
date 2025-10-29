@@ -22,7 +22,18 @@ namespace AI_FileCombiner
         private readonly string[] defaultExcludedDirs = { "\\bin\\", "\\obj\\", "\\.vs\\", "\\.git\\" };
         private readonly string[] defaultExcludedFiles = { "AssemblyInfo.cs" };
         private readonly string[] defaultExcludedExtensions = { ".csproj", ".user", ".sln" };
-
+        private readonly string[] defaultUsingsToRemove =
+        {
+            "System",
+            "System.Collections.Generic",
+            "System.ComponentModel",
+            "System.Data",
+            "System.Drawing",
+            "System.Linq",
+            "System.Text",
+            "System.Threading.Tasks",
+            "System.Windows.Forms"
+        };
 
         public Form1()
         {
@@ -112,6 +123,11 @@ namespace AI_FileCombiner
                     sb.AppendLine($"// File: {relativePath}");
 
                     string fileContent = File.ReadAllText(file);
+
+                    // удаление мусорных using'ов
+                    string usingsPattern = string.Join("|", defaultUsingsToRemove.Select(Regex.Escape));
+                    string fullPattern = $@"^\s*using\s+({usingsPattern});\s*[\r\n]*";
+                    fileContent = Regex.Replace(fileContent, fullPattern, "", RegexOptions.Multiline);
 
                     if (cb_RemoveExtraSpaces.Checked)
                     {
